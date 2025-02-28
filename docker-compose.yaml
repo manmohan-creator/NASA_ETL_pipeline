@@ -1,0 +1,23 @@
+## Creating the docker_compose.yml file to create multiple containers and to establish the network between them.
+version: '3'
+services: 
+  postgres:
+    image: postgres:13
+    container_name: postgres_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+    networks:
+      - airflow-network
+    
+networks:
+  airflow-network:
+    external: False
+
+volumes:
+  postgres_data:
